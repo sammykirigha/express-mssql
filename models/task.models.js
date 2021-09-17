@@ -41,4 +41,4 @@ class TaskModel {
     }
 }
 
-module.exports = TaskModel
+module.exports = new TaskModel
