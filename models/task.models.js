@@ -13,14 +13,14 @@ class TaskModel {
    }
     
     findTaskById = async (id) => {
-        const sql = `SELECT * FROM ${this.tableName} WHERE id = '${id}'`
+        const sql = `SELECT * FROM ${this.tableName} WHERE task_id = '${id}'`
 
         const result = await (await pool).request().query(sql);
         return result.recordsets[0][0]
     }
 
     deleteTask = async (id) => {
-        const sql = `DELETE FROM ${this.tableName} WHERE id = '${id}'`
+        const sql = `DELETE FROM ${this.tableName} WHERE task_id = '${id}'`
 
         const result = await (await pool).request().query(sql);
         const affectedRows = result ? result.rowsAffected : 0;

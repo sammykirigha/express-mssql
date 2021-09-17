@@ -14,9 +14,10 @@ class TasksControllers {
     }
 
     getTaskById = async (req, res, next) => {
-        const id = req.params.id;
+        const task_id = req.params.id;
+        console.log('task id<<<<<<>>>>>', task_id);
 
-        const task = await TaskModel.findTaskById(id);
+        const task = await TaskModel.findTaskById(task_id);
         if (!task) {
             throw new HttpException(404, 'task does not exist')
         }
@@ -25,9 +26,10 @@ class TasksControllers {
     }
 
     deleteTask = async (req, res, next) => {
-        const id = req.params.id
+        const task_id = req.params.id
         
-        const result = await TaskModel.deleteTask(id);
+        const result = await TaskModel.deleteTask(task_id);
+        // console.log('result<<<<>>>!', result);
         if (!result) {
             throw new HttpException(404, 'Task trying to delete is not found')
         }

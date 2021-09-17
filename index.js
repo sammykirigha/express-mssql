@@ -5,6 +5,7 @@ const sql = require('mssql')
 const config = require('./db/dbConfig');
 const userRouter = require('./routes/user.router');
 const projectRouter = require('./routes/project.router');
+const taskRouter = require('./routes/task.router');
 const HttpException = require('./utils/HttpException.utils');
 const errorMiddleware = require('./middleware/error.middleware')
 
@@ -36,6 +37,7 @@ sql.connect(config).then(pool => {
 
 app.use('/api/v2/users', userRouter);
 app.use('/api/v2/projects', projectRouter);
+app.use('/api/v2/tasks', taskRouter);
 
 
 app.all("*", (req, res, next) => {
