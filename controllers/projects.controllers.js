@@ -17,10 +17,13 @@ class ProjectController {
         const id = req.params.id;
 
         const project = await ProjectModel.findOne(id)
+        // console.log('project:<<<<>>>>', project);
 
         if (!project) {
             throw new HttpException(404, 'Project not found')
         }
+
+        res.send(project)
     }
 
     deleteProject = async (req, res, next) => {
@@ -43,5 +46,9 @@ class ProjectController {
         if (!result) {
             throw new HttpException(500, "Something went wrong")
         }
+
+        res.status(201).send('Project was created')
     }
 }
+
+module.exports = new ProjectController

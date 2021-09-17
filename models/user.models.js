@@ -42,6 +42,17 @@ class UserModel {
         return results.recordsets
     }
 
+    update = async (id) => {
+        const pool = await mssql.connect(config);
+        let results = await pool.request()
+            .input('username', mssql.VarChar(50), user.username)
+            .input('first_name', mssql.VarChar(50), user.first_name)
+            .input('last_name', mssql.VarChar(50), user.last_name)
+            .input('email', mssql.VarChar(100), user.email)
+            .execute('uspUpdateUsers')
+        return results.recordsets
+    }
+
     delete = async (id) => {
         const pool = await mssql.connect(config);
         const sql = `DELETE FROM ${this.tableName} WHERE id = ${id} `

@@ -8,6 +8,7 @@ const { createUserSchema, updateUserSchema, validateLogin } = require('../middle
 router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 router.get('/id/:id', awaitHandlerFactory(usersController.getUserById));
 router.delete('/id/:id', awaitHandlerFactory(usersController.deleteUser));
+router.patch('/id/:id', awaitHandlerFactory(usersController.updateUser));
 router.post('/signup', createUserSchema, awaitHandlerFactory(usersController.createUser));
 
 router.post('/login', validateLogin, awaitHandlerFactory(usersController.userLogin))

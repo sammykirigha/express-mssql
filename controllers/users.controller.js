@@ -62,6 +62,19 @@ class UserController {
         res.status(201).send('User was created')
     }
 
+    updateUser = async (req, res, next) => {
+        const id = req.params.id;
+
+        const result = await UserModel.update(id)
+        console.log('updated user:',result)
+
+        if (!result) {
+            throw new HttpException(500, 'Could not update user')
+        }
+
+        res.status(204).send('User updated successfully')
+    }
+
     userLogin = async (req, res, next) => {
         this.checkValidation(req);
         
