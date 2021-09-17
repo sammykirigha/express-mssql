@@ -46,3 +46,5 @@ class TasksControllers {
         res.status(201).send('Task was created successfully')
     }
 }
+
+module.exports = new TasksControllers
