@@ -18,5 +18,5 @@ app.get('/task/health', (req, res) => {
 })
 
 
-const PORT = config.PORT
+const PORT = config.port
 app.listen(PORT, () =>console.log(`Service running on port ${PORT}`))

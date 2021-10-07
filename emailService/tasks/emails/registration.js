@@ -1,4 +1,4 @@
-const db = require("../../db")
+const db = require("../../db/db")
 const ejs = require('ejs')
 const { sendMail } = require("../helpers/email");
 
