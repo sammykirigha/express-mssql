@@ -1,5 +1,4 @@
 const db = require('../db/db');
-const ProjectModel = require('../models/projects');
 const HttpException = require('../utils/httpException');
 
 
@@ -37,7 +36,6 @@ class ProjectController {
     }
 
     createProject = async (req, res, next) => {
-        console.log(req.body);
           const {
             project_name,
             start_date,
@@ -64,11 +62,11 @@ class ProjectController {
             const id = req.params.id;
             const {
                 project_name,
-            start_date,
-            duration,
-            description,
-            team_lead,
-            initial_activity,
+                start_date,
+                duration,
+                description,
+                team_lead,
+                initial_activity,
             } = req.body
             const result = await (await db.exec('uspUpdateProjects', {
                 id,

@@ -1,6 +1,6 @@
 --create task procedure
 
-CREATE PROCEDURE uspInsertInToTasks
+ALTER PROCEDURE [dbo].[uspInsertInToTasks]
     @task_name VARCHAR(50),
     @description VARCHAR(250),
     @duration VARCHAR(50),

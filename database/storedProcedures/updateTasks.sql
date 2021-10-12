@@ -1,5 +1,5 @@
 --update tasks stored procedure
-CREATE PROCEDURE uspUpdateInToTasks
+ALTER PROCEDURE [dbo].[uspUpdateInToTasks]
     @id INT,
     @task_name VARCHAR(50),
     @description VARCHAR(250),
@@ -7,7 +7,7 @@ CREATE PROCEDURE uspUpdateInToTasks
     @project_id INT,
     @user_id INT
 AS
-BEGIN 
+BEGIN
     SET NOCOUNT ON
     UPDATE dbo.tasks SET 
              task_name = @task_name

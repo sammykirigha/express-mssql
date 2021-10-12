@@ -1,5 +1,5 @@
 --select all info procedure
-ALTER PROCEDURE uspSelectTask
+ALTER PROCEDURE [dbo].[uspSelectTask]
     @id INT,
     @task_name VARCHAR(50),
     @description VARCHAR(250),
@@ -9,7 +9,7 @@ ALTER PROCEDURE uspSelectTask
 AS 
 BEGIN
     SET NOCOUNT ON
-    SELECT t.id, t.duration as task_Duration, t.description as task_Description, t.project_id, p.project_name, s.username
+    SELECT t.id, t.task_name, t.duration as task_Duration, t.description as task_Description, t.project_id, p.project_name, s.username
     FROM dbo.tasks t
         INNER JOIN dbo.projects p ON t.project_id = p.id
         INNER JOIN dbo.users s ON s.id = t.user_id

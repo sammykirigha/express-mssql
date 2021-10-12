@@ -1,10 +1,10 @@
-const TaskModel = require("../../tasksService/models/task");
 const HttpException = require("../../tasksService/utils/httpException");
+const db = require("../db/db");
 
 class TasksControllers {
 
     getAllTasks = async (req, res, next) => {
-        let tasks = await TaskModel.find();
+        let tasks = await (await db.exec('getTasks')).recordsets[0]
 
         if (!tasks.length) {
             throw new HttpException(404, 'Tasks not found')
@@ -20,7 +20,7 @@ class TasksControllers {
     }
 
     getTasksByProjectsAndUsers = async (req, res, next) => {
-        let allTasksInfo = await TaskModel.selectAllTasksByProjectsAndUsers()
+        let allTasksInfo = await (await db.exec('uspSelectTask')).recordsets[0]
 
         if (!allTasksInfo.length) {
             res.send('Information not found')
@@ -32,7 +32,7 @@ class TasksControllers {
     getTaskById = async (req, res, next) => {
         const id = req.params.id;
 
-        const task = await TaskModel.findTaskById(id);
+        const task = await (await db.exec('getTask', {id}))
         if (!task) {
             throw new HttpException(404, 'task does not exist')
         }
@@ -43,10 +43,9 @@ class TasksControllers {
     }
 
     deleteTask = async (req, res, next) => {
-        const task_id = req.params.id
+        const id = req.params.id
         
-        const result = await TaskModel.deleteTask(task_id);
-        // console.log('result<<<<>>>!', result);
+        const result = await (await db.exec('deleteTask', {id} )).rowsAffected
         if (!result) {
             throw new HttpException(404, 'Task trying to delete is not found')
         }
@@ -55,14 +54,50 @@ class TasksControllers {
     }
 
     createTask = async (req, res, next) => {
-        const task = req.body
+        const {
+            task_name,
+            description,
+            duration,
+            project_id,
+            user_id
+        } = req.body
 
-        const result = await TaskModel.createTask(task);
+        const result = await (await db.exec('uspInsertInToTasks', {
+            task_name,
+            description,
+            duration,
+            project_id,
+            user_id
+        }))
         if (!result) {
             throw new HttpException(500, 'An error occured while creating a task')
         }
 
         res.status(201).send('Task was created successfully')
+    }
+
+    updateTask = async (req, res, next) => {
+        const id = req.params.id
+        const {
+            task_name,
+            description,
+            duration,
+            project_id,
+            user_id
+        } = req.body
+
+        const result = await (await db.exec('uspUpdateInToTasks', {
+            task_name,
+            description,
+            duration,
+            project_id,
+            user_id
+        }))
+
+        if (result === 0) {
+            throw new HttpException(404, "Something went wrong")
+        }
+        res.send("Task updated successfully")
     }
 }
 
