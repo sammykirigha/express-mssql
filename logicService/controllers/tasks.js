@@ -1,5 +1,5 @@
-const TaskModel = require("../models/task");
-const HttpException = require("../utils/httpException");
+const TaskModel = require("../../tasksService/models/task");
+const HttpException = require("../../tasksService/utils/httpException");
 
 class TasksControllers {
 

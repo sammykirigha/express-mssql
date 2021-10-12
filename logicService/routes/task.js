@@ -1,6 +1,6 @@
 const express = require('express');
 const tasksControllers = require('../controllers/tasks');
-const awaitHandlerFactory = require('../middleware/awaitHandlerFactory');
+const awaitHandlerFactory = require('../../tasksService/middleware/awaitHandlerFactory');
 const router = express.Router();
 
 

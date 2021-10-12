@@ -7,7 +7,7 @@ ALTER PROCEDURE uspUpdateInToUsers
     @role VARCHAR(50),
     @gender VARCHAR(50),
     @email VARCHAR(100)
-AS​
+    ​
 BEGIN​
     SET NOCOUNT ON
     UPDATE dbo.users SET 

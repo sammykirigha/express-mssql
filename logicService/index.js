@@ -6,7 +6,7 @@ const cors = require('cors')
 const config = require('./config');
 
 //Import Routes
-const taskRouter = require('./routes/task')
+const projectRouter = require('./routes/projects');
 const HttpException = require('./utils/httpException');
 const errorMiddleware = require('./middleware/errorMiddleware')
 
@@ -17,7 +17,7 @@ app.options("*", cors());
 app.use(express.urlencoded({ extended: true }))
 
 //Routes
-app.use('/api/v2/tasks', taskRouter);
+app.use('/api/v2/projects', projectRouter);
 
 //middleware
 app.use(errorMiddleware);

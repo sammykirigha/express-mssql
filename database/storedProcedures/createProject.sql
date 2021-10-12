@@ -1,4 +1,4 @@
-ALTER PROCEDURE uspInsertInToProjects
+ALTER PROCEDURE [dbo].[uspInsertInToProjects]
     @project_name VARCHAR(50),
     @start_date DATE,
     @duration VARCHAR(50),

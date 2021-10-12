@@ -1,4 +1,4 @@
-ALTER PROCEDURE uspUpdateProjects
+ALTER PROCEDURE [dbo].[uspUpdateProjects]
     @id INT,
     @project_name VARCHAR(50),
     @start_date DATE,

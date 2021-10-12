@@ -1,10 +1,11 @@
+const db = require('../db/db');
 const ProjectModel = require('../models/projects');
-const HttpException = require('../utills/httpException');
+const HttpException = require('../utils/httpException');
 
 
 class ProjectController {
     getAllProjects = async (req, res, next) => {
-        let projectsList = await ProjectModel.find()
+        let projectsList = await (await db.exec('getProjects')).recordsets[0]
         if (!projectsList.length) {
             throw new HttpException(404, 'Projects not found')
         }
@@ -17,7 +18,7 @@ class ProjectController {
 
     getProjectById = async (req, res, next) => {
         const id = req.params.id;
-        const project = await ProjectModel.findOne(id)
+        const project = await (await db.exec('getProject', {id})).recordsets[0][0]
         if (!project) {
             throw new HttpException(404, 'Project not found')
         }
@@ -28,7 +29,7 @@ class ProjectController {
 
     deleteProject = async (req, res, next) => {
         const id = req.params.id
-        const result = await ProjectModel.delete(id)
+        const result = await (await db.exec('deleteProject', { id })).rowsAffected
         if (!result) {
             throw new HttpException(404, 'Project is not found')
         }
@@ -36,23 +37,48 @@ class ProjectController {
     }
 
     createProject = async (req, res, next) => {
-        const project = req.body;
-        const result = await ProjectModel.create(project);
-        if (!result) {
+        console.log(req.body);
+          const {
+            project_name,
+            start_date,
+            duration,
+            description,
+            team_lead,
+            initial_activity,
+        } = req.body
+        const results = await (await db.exec('uspInsertInToProjects', {
+            project_name,
+            start_date,
+            duration,
+            description,
+            team_lead,
+            initial_activity,
+        })).recordsets
+        if (!results) {
             throw new HttpException(500, "Something went wrong")
         }
         res.status(201).send('Project was created')
     }
 
         updateProject = async (req, res, next) => {
-        const projectId = req.params.id;
-        const project = await ProjectModel.findOne(projectId);
-        const { id, ...projectWithId } = project;
-        const updatebody = { ...projectWithId, ...req.body };
-            const result = await ProjectModel.update(id, updatebody)
-            console.log('result', result);
-            console.log('request', req.body);
-            console.log('updatebody', updatebody);
+            const id = req.params.id;
+            const {
+                project_name,
+            start_date,
+            duration,
+            description,
+            team_lead,
+            initial_activity,
+            } = req.body
+            const result = await (await db.exec('uspUpdateProjects', {
+                id,
+                project_name,
+                start_date,
+                duration,
+                description,
+                team_lead,
+                initial_activity,
+            }))
 
 
         if (result ===  0) {
