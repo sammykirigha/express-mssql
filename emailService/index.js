@@ -6,6 +6,7 @@ const regTask = require('./tasks/emails/registration')
 
 const run = async() => {
     cron.schedule('*/10 * * * * *', async () => {
+        // console.log("await");
         await regTask();
     })
 }

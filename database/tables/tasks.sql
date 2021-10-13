@@ -9,3 +9,5 @@ CREATE TABLE [dbo].tasks
     isDeleted INT DEFAULT(0)
 );
 GO
+
+DROP TABLE [dbo].tasks

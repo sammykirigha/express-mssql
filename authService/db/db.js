@@ -1,14 +1,12 @@
 const mssql = require('mssql');
 const config = require('../config')
 
-const pool = mssql.connect(config.sql)
+// const pool = mssql.connect(config.sql)
 
-module.exports = pool;
-
+// module.exports = pool;
 class Connection {
     constructor() {
         this.connecToDb();
-        this.exec=this.exec.bind(this);
     }
 
     connecToDb = async () => {

@@ -6,10 +6,10 @@ const cors = require('cors')
 const config = require('./config');
 
 //Import Routes
-const userRouter = require('./routes/users')
+const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth')
 const HttpException = require('./utils/HttpException');
 const errorMiddleware = require('./middleware/error.middleware')
-
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //Routes
 app.use('/api/v2/users', userRouter);
+app.use('/api/v2/auth', authRouter);
 
 //middleware
 app.use(errorMiddleware);

@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const HttpException = require('../utils/HttpException')
 const {validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken');
@@ -47,65 +47,65 @@ class UserController {
         res.send('User has being deleted')
     }
 
-    createUser = async (req, res, next) => {
-        this.checkValidation(req);
+    // createUser = async (req, res, next) => {
+    //     this.checkValidation(req);
 
-        const hashedPassword = await this.hashPassword(req.body.password);
-        const user = { ...req.body, password: hashedPassword, confirm_password: hashedPassword };
-        // console.log(user);
-        const result = await UserModel.create(user)
-        if (!result) {
-            throw new HttpException(500, 'Something went wrong')
-        }
+    //     const hashedPassword = await this.hashPassword(req.body.password);
+    //     const user = { ...req.body, password: hashedPassword, confirm_password: hashedPassword };
+    //     // console.log(user);
+    //     const result = await UserModel.create(user)
+    //     if (!result) {
+    //         throw new HttpException(500, 'Something went wrong')
+    //     }
 
-        res.status(201).send('user was created')
-    }
+    //     res.status(201).send('user was created')
+    // }
 
-    updateUser = async (req, res, next) => {
-        const userId = req.params.id;
-        const user = await UserModel.findOne(userId);
-        const {id, ...userWithoutId} = user
-        const updatebody = {...userWithoutId, ...req.body}
-        const result = await UserModel.update(userId, updatebody)
-        console.log('updated user:',result)
-        if (result === 0) {
-            res.send('Update failed')
-        }
-        res.send('User updated successfully')
-    }
+    // updateUser = async (req, res, next) => {
+    //     const userId = req.params.id;
+    //     const user = await UserModel.findOne(userId);
+    //     const {id, ...userWithoutId} = user
+    //     const updatebody = {...userWithoutId, ...req.body}
+    //     const result = await UserModel.update(userId, updatebody)
+    //     console.log('updated user:',result)
+    //     if (result === 0) {
+    //         res.send('Update failed')
+    //     }
+    //     res.send('User updated successfully')
+    // }
 
-    userLogin = async (req, res, next) => {
-        this.checkValidation(req);
-        const { email, password: pass } = req.body;
+    // userLogin = async (req, res, next) => {
+    //     this.checkValidation(req);
+    //     const { email, password: pass } = req.body;
 
-        const user = await UserModel.findOneByEmail(email);
+    //     const user = await UserModel.findOneByEmail(email);
 
-        if (!user) {
-            throw new HttpException('Unable to login')
-        }
-        // const isMatch = await bcrypt.compare(pass, user.password)
-        // console.log('match<<<<>>>>:', isMatch);
+    //     if (!user) {
+    //         throw new HttpException('Unable to login')
+    //     }
+    //     const isMatch = await bcrypt.compare(pass, user.password)
+    //     console.log('match<<<<>>>>:', isMatch);
 
-        // if (!isMatch) {
-        //     throw new HttpException(401, 'Incorrect password')
-        // }
-        const sescretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({ user_id: user.id.toString() }, sescretKey, { expiresIn: '24h' });
-        const { password, isDeleted, ...userWithoutPassword } = user;
-        res.send({ ...userWithoutPassword, token })
-    }
+    //     if (!isMatch) {
+    //         throw new HttpException(401, 'Incorrect password')
+    //     }
+    //     const sescretKey = process.env.SECRET_JWT || "";
+    //     const token = jwt.sign({ user_id: user.id.toString() }, sescretKey, { expiresIn: '24h' });
+    //     const { password, isDeleted, ...userWithoutPassword } = user;
+    //     res.send({ ...userWithoutPassword, token })
+    // }
 
 
-    checkValidation = (req) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            throw new HttpException(404, 'Validation failed', errors)
-        }
-    }
-    hashPassword = async (password) => {
-        const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
-        return hashedPassword
-    }
+    // checkValidation = (req) => {
+    //     const errors = validationResult(req)
+    //     if (!errors.isEmpty()) {
+    //         throw new HttpException(404, 'Validation failed', errors)
+    //     }
+    // }
+    // hashPassword = async (password) => {
+    //     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    //     return hashedPassword
+    // }
 }
 
 module.exports = new UserController
