@@ -9,8 +9,5 @@ router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 router.get('/:id', awaitHandlerFactory(usersController.getUserById));
 router.delete('/:id', awaitHandlerFactory(usersController.deleteUser));
 router.put('/:id', updateUserSchema, awaitHandlerFactory(usersController.updateUser));
-router.post('/signup', createUserSchema, awaitHandlerFactory(usersController.createUser));
-
-router.post('/login', awaitHandlerFactory(usersController.userLogin))
 
 module.exports = router;

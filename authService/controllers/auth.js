@@ -35,7 +35,9 @@ module.exports = {
         // if (!validPassword) return res.status(404).send({ message: "Invalid email or password" })
         
         const token = generateToken(user.email, user.id, user.isAdmin);
-
+        const { isDeleted, ...userInformation } = user
+        console.log(userInformation);
+        res.send({...userInformation, token})
         res.send({
             user: _.pick(user, [
                 "id",
@@ -60,8 +62,8 @@ module.exports = {
 
         if (user) return res.status(400).send({ message: "Account exists with the given email" })
         
-        // const salt = await bcrypt.genSalt(10);
-        const password = await (await bcrypt.hash(req.body.password, 10)).trim();
+        const salt = await bcrypt.genSalt(10);
+        const password = await (await bcrypt.hash(req.body.password, salt));
         const { username, full_name, email, gender, age, isAdmin } = req.body
         
         const id = uuidv4()
@@ -87,3 +89,4 @@ module.exports = {
         }
     }
 }
+
