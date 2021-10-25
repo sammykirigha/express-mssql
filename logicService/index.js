@@ -7,6 +7,7 @@ const config = require('./config');
 
 //Import Routes
 const projectRouter = require('./routes/projects');
+const taskRouter = require('./routes/task');
 const HttpException = require('./utils/httpException');
 const errorMiddleware = require('./middleware/errorMiddleware')
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }))
 
 //Routes
 app.use('/api/v2/projects', projectRouter);
+app.use('/api/v2/tasks', taskRouter);
 
 //middleware
 app.use(errorMiddleware);

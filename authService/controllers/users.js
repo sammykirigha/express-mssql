@@ -21,7 +21,7 @@ class UserController {
             return userWithoutPassword
         })
 
-        res.send(userList)
+        return res.send(userList)
     };
 
     getUserById = async (req, res, next) => {
@@ -31,7 +31,7 @@ class UserController {
             throw new HttpException(404, 'User not found')
         }
         const { password, isDeleted, ...userWithoutPassword } = user;
-        res.send(userWithoutPassword)
+        return res.send(userWithoutPassword)
     };
 
     deleteUser = async (req, res, next) => {

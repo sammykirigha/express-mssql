@@ -1,5 +1,5 @@
 ALTER PROCEDURE [dbo].[getProject]
-    @id INT
+    @id VARCHAR(50)
 AS
 
 SET NOCOUNT ON;
@@ -10,8 +10,9 @@ BEGIN
         p.start_date,
         p.duration,
         p.description,
-        p.team_lead,
+        p.team_lead_id,
         p.initial_activity
     FROM [projects] p
     WHERE id = @id AND isDeleted = 0
-END         
+END  
+

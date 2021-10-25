@@ -26,8 +26,6 @@ module.exports = {
 
         const user = recordset[0]
 
-        console.log('My tag user ', user);
-
         if (!user) return res.status(404).send({ message: "Account does not exist" })
         
         // const validPassword = await bcrypt.compare(password, user.password)
@@ -36,7 +34,6 @@ module.exports = {
         
         const token = generateToken(user.email, user.id, user.isAdmin);
         const { isDeleted, ...userInformation } = user
-        console.log(userInformation);
         res.send({...userInformation, token})
         res.send({
             user: _.pick(user, [

@@ -1,28 +1,37 @@
 --create task procedure
 
-ALTER PROCEDURE [dbo].[uspInsertInToTasks]
+CREATE OR ALTER PROCEDURE [dbo].[uspInsertInToTasks]
+    @id VARCHAR(100),
     @task_name VARCHAR(50),
+    @start_date DATE,
     @description VARCHAR(250),
     @duration VARCHAR(50),
-    @project_id INT,
-    @user_id INT
+    @status VARCHAR(50),
+    @project_id VARCHAR(50),
+    @user_id VARCHAR(50)
 
 AS
 BEGIN
     SET NOCOUNT ON
     INSERT INTO [dbo].tasks
         (
-        [task_name]
-        ,[description]
-        ,[duration]
-        ,[project_id]
-        ,[user_id]
+        id
+        ,task_name
+        ,start_date
+        ,description
+        ,duration
+        ,status
+        ,project_id
+        ,user_id
         )
     VALUES
         (
+            @id,
             @task_name,
+            @start_date,
             @description,
             @duration,
+            @status,
             @project_id,
             @user_id
     )

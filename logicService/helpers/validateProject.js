@@ -7,7 +7,7 @@ exports.validateProject = (project) => {
         start_date: Joi.date().required(),
         duration: Joi.string().required(),
         description: Joi.string().required(),
-        team_lead: Joi.string().required(),
+        team_lead_id: Joi.string().required(),
         initial_activity: Joi.string().required()
     })
 
