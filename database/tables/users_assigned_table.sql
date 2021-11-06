@@ -1,0 +1,10 @@
+CREATE TABLE [dbo].users_assigned
+(
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
+    user_id VARCHAR(50) FOREIGN KEY REFERENCES [dbo].users(id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    project_id VARCHAR(50) FOREIGN KEY REFERENCES [dbo].projects(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    isDeleted INT DEFAULT(0)
+);
+GO
+
+DROP TABLE [dbo].users_assigned

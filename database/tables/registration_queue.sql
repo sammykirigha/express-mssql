@@ -8,3 +8,5 @@ create table [dbo].registration_queue
 
 select *
 from [dbo].registration_queue
+
+delete from [dbo].registration_queue where user_id = '567b4363-85f4-4987-9156-58e2104b1535'

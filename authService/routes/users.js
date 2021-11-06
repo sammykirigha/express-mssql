@@ -9,5 +9,7 @@ router.get('/', awaitHandlerFactory(usersController.getAllUsers));
 router.get('/:id', awaitHandlerFactory(usersController.getUserById));
 router.delete('/:id', awaitHandlerFactory(usersController.deleteUser));
 router.put('/:id', updateUserSchema, awaitHandlerFactory(usersController.updateUser));
+router.post('/create', awaitHandlerFactory(usersController.insertUsersAssigned));
+router.get('/assigned/users', awaitHandlerFactory(usersController.getUserAssigned))
 
 module.exports = router;

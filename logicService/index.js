@@ -11,7 +11,6 @@ const taskRouter = require('./routes/task');
 const HttpException = require('./utils/httpException');
 const errorMiddleware = require('./middleware/errorMiddleware')
 
-
 app.use(express.json());
 app.use(cors());
 app.options("*", cors());
@@ -27,7 +26,6 @@ app.all("*", (req, res, next) => {
     const err = new HttpException(404, 'Endpoint not found')
     next(err)
 })
-
 
 app.get('/', (req, res) => {
     res.send({status: "Ok", message: "Welcome to API"})

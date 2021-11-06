@@ -3,14 +3,11 @@ const ejs = require('ejs')
 const { sendMail } = require("../helpers/email");
 
 
-
 module.exports =  async () => {
   const items = await (await db.query("SELECT * FROM dbo.registration_queue where isSent = 0")).recordset
-  // console.log({items});
-    
+  
     for (let item of items) {
         const user = await (await db.query("SELECT * FROM dbo.users where id = '" + item.user_id + "'")).recordset[0]
-        // console.log({user});
         ejs.renderFile('templates/registration.ejs', { username: user.username, email: user.email, password: "pass123." }, async (error, data) => {
             if (error) return;
             const message = {
@@ -32,7 +29,7 @@ module.exports =  async () => {
               console.log(`Registration Email sent to ${user.email}`);
           } catch (error) {
               console.log(error);
-            console.log(`Couldn't send email to ${user.email}`);
+            console.log(`Couldn't send email to<<<<<>>>>> ${user.email}`);
           }  
         })
     }

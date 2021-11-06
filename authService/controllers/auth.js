@@ -79,6 +79,7 @@ module.exports = {
             })
 
             await (await db).query("INSERT INTO dbo.registration_queue (user_id, isSent) VALUES('" + id + "', 0)");
+            await (await db).query("INSERT INTO dbo.project_assign_queue (user_id, isSent) VALUES('" + id + "', 0)")
             res.send({message: "User registerd successfully"})
         } catch (error) {
             console.log(error);

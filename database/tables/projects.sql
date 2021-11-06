@@ -16,3 +16,5 @@ GO
 
 select *
 from projects
+
+delete from projects where id = '90d1a493-c991-4ffc-adba-d2dc594c4736'

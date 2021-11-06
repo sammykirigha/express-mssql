@@ -3,15 +3,21 @@ const cron = require('node-cron')
 const config =require('./config')
 const app = express()
 const regTask = require('./tasks/emails/registration')
+const assigTask = require('./tasks/emails/projectAssign')
 
 const run = async() => {
     cron.schedule('*/10 * * * * *', async () => {
-        // console.log("await");
+        // console.log("wait");
         await regTask();
+    })
+
+    cron.schedule('*/10 * * * * *', async () => {
+        await assigTask();
     })
 }
 
-run()
+
+run();
 
 
 app.get('/task/health', (req, res) => {

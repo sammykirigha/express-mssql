@@ -14,9 +14,12 @@ CREATE TABLE [dbo].users
 );
 GO
 
+ALTER TABLE [dbo].users ADD project_assigned VARCHAR(50) DEFAULT
+('unassigned')
+
+ALTER TABLE [dbo].users DROP COLUMN project_assigned
+
 SELECT *
 FROM [dbo].users
-GO
 
-
-DELETE FROM [dbo].users WHERE email = 'dkirigha18@gmail.com';
+delete FROM [dbo].users WHERE id = '09c52b25-80b1-4996-a444-3bc2d45fc56c'

@@ -20,8 +20,10 @@ module.exports =  {
 
     getTasksByProjectsAndUsers: async (req, res, next) => {
         
+        console.log('loading');
         try {
             let result = await db.exec('uspSelectTask')
+            console.log(result);
             const tasks = parseResults(result)
             res.status(200).json(tasks)
         } catch (error) {
